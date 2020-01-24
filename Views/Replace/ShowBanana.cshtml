@@ -1,0 +1,40 @@
+@model Banana
+
+<h1>Dojo Activity Center</h1>
+<a asp-action="Dashboard" asp-controller="Replace">Home</a> |
+<a asp-action="LogOut" asp-controller="Home">Log Out</a><hr>
+
+<h3>@Model.Title</h3>
+<p>
+    Event Coordinator: @Model.Planner.FirstName<br>
+    Description: @Model.Description <br>  
+</p>
+
+<div>
+    <p>Participants:</p>
+    @foreach(var p in @Model.GuestList)
+    {
+        <ul>
+            <li>@p.Guest.FirstName</li>
+        </ul>
+    }
+</div>
+
+<div>
+    @if(ViewBag.User.UserId == @Model.Planner.UserId)
+    {
+        <a asp-action="DeleteBanana" asp-controller="Replace" asp-route-bananaId="@Model.BananaId">Delete</a>
+    }
+    else
+    {
+        @if(@Model.GuestList.All( p => p.UserId != ViewBag.User.UserId))
+        {
+            <a asp-action="Join" asp-controller="Replace" asp-route-bananaId="@Model.BananaId" asp-route-userId="@ViewBag.User.UserId" asp-route-status="join">Join</a>
+        }
+        @if(@Model.GuestList.Any( p => p.UserId == ViewBag.User.UserId))
+        {
+            <a asp-action="Join" asp-controller="Replace" asp-route-bananaId="@Model.BananaId" asp-route-userId="@ViewBag.User.UserId" asp-route-status="leave">Leave</a>
+        }
+    }
+</div>
+

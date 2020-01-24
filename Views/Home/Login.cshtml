@@ -1,0 +1,22 @@
+@model LoginUser
+
+<h1>Login</h1>
+<a asp-action="Index" asp-controller="Home">Don't have an account?</a>
+
+<form class = "col-5" asp-action="SignIn" asp-controller="Home" method="post">
+    <div class="form-group">
+        <span asp-validation-for="LoginEmail" style="color:red;"></span><br>
+        <label asp-for="LoginEmail"></label>
+        <input asp-for="LoginEmail" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <span asp-validation-for="LoginPassword" style="color:red;"></span><br>
+        <label asp-for="LoginPassword"></label>
+        <input asp-for="LoginPassword" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="bng btn-outline-success" value="sign-in">
+    </div>
+</form>
